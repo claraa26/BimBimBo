@@ -12,7 +12,7 @@ Kelas : PBP-E <br/>
 |Cocok untuk menampilkan data yang sifatnya statis atau nilainya tidak perlu berubah| Dapat menampilkan data yang bersifat dinamis atau berubah-ubah|
 
 #### Diagram perbedaan
-![Diagram Perbedaan](image/flutter_widget.png)
+<img src="https://cdn.discordapp.com/attachments/1030834426126544907/1171528585559953489/flutter_widget.png?ex=655d0204&is=654a8d04&hm=3196c44083335687492434dbde8260e79b3941825bca167af0c772c7e5e10f54&">
 
 ## Widget yang digunakan pada tugas ini dan fungsinya masing-masing.
 ```MaterialApp``` -> Dipanggil dari wigdet ```MyApp```.  Merupakan root widget dari aplikasi Flutter yang menggunakan Material Design serta menyediakan fitur-fitur penting seperti navigasi dan tema untuk aplikasi.
