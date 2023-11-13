@@ -1,57 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:bimbimbo/widgets/left_drawer.dart';
+import 'package:bimbimbo/widgets/kdrama_card.dart';
 
-class KdramaItem {
-  final String name;
-  final IconData icon;
-  final Color color;
-
-  KdramaItem(this.name, this.icon, this.color);
-}
-
-class KdramaCard extends StatelessWidget {
-  final KdramaItem item;
-
-  const KdramaCard(this.item, {super.key}); // Constructor
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: item.color,
-      child: InkWell(
-        // Area responsive terhadap sentuhan
-        onTap: () {
-          // Memunculkan SnackBar ketika diklik
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!")));
-        },
-        child: Container(
-          // Container untuk menyimpan Icon dan Text
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class MyHomePage extends StatelessWidget {
     MyHomePage({Key? key}) : super(key: key);
@@ -71,6 +21,7 @@ class MyHomePage extends StatelessWidget {
         foregroundColor: Colors.white,
         backgroundColor: Color.fromARGB(255, 138, 233, 219),
       ),
+      drawer: const LeftDrawer(),
       body: SingleChildScrollView(
         // Widget wrapper yang dapat discroll
         child: Padding(

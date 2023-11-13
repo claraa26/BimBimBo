@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bimbimbo/menu.dart';
+import 'package:bimbimbo/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
