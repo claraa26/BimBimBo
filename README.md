@@ -1,8 +1,109 @@
-# Tugas8 - PBP
+# Tugas9 - PBP
 Nama  : Clara Sista Widhiastuti <br/>
 NPM   : 2206825782 <br/>
 Kelas : PBP-E <br/>
 
+## Pengambilan data JSON tanpa membuat model 
+Bisa melakukan pengambilan data JSON tanpa membuat model
+
+Namun, lebih baik pengambilan data dilakukan menggunakan model, karena dengan membuat model kita dapat memvalidasi dan menverifikasi data yang kita ambil. Membuat model juga membantu kita untuk menyimpan dan mengorganisir data yang di ambil.
+
+## fungsi dari CookieRequest
+CookieRequest digunakan untuk mengirim dan menyimpan cookies saat melakukan request HTTP. Dengan demikian akan memudahkan untuk mengelola cookies.
+
+Instance CookieRequet perlu untuk dibagikan ke semua komponen di flutter karena dapat digunakan untuk menyimpan informasi login, menyimpan pengaturan website, dan lainnya.
+
+## Mekanisme pengambilan data dari JSON hingga ditampilkan pada Flutter.
+1. Membuat model custom JSON dengan website [Quicktype](https://app.quicktype.io/) masukan endpoint ```JSON``` proyek django kamu
+2. Menambahkan dependensi HTTP. Untuk memperbolehkan akses internet tambahkan kode ``` <uses-permission android:name="android.permission.INTERNET" />``` pada file ``` android/app/src/main/AndroidManifest.xml```
+3. Lakukan fetch data pada file ```list_kdrama.dart```
+
+
+## mekanisme autentikasi dari input data akun pada Flutter ke Django
+1. Memasukan data akun berupa ```username``` dan ```password``` pada laman ```LoginPage```
+2. Fungsi ```login``` yang dipanggil mengirimkan HTTP request dengan endpoint URL sesuai proyek Django
+3. Kemudian dilakukan authetication oleh django
+4. jika berhasil maka akan langsung diarahkan pada ```MyHomePage```
+
+## widget yang dipakai pada tugas ini 
+1. ```TextField``` -> Untuk memasukan input teks
+2. ```ListView.builder``` -> Untuk menampilkan data dan dapat di scroll
+3. ```Column``` -> tata letak child-widget secara vertikal
+4. ```FutureBuilder``` -> Membuat widget asinkronus untuk mengelola status eror
+
+## Implementasi
+#### Membuat halaman login pada proyek tugas Flutter dan authentikasinya
+1. Membuat ```Django-app``` bernama ```authetication```
+2. Menginstal ```corsheaders```
+3. Membuat fungsi  ```login``` pada ```views.py``` untuk mengelola authentikasi saat login
+4. instal package ```add pbp_django_auth``` modifikasi root widget untuk menyediakan ```CookieRequest``` library ke semua child widgets dengan menggunakan ```Provider```
+5. Buat berkas baru `lib/screens/login.dart` dan isi dengan fungsi yang digunakan ```login```
+
+#### Pembuatan model custom
+1. Bukalah endpoint ```JSON``` yang sudah kamu buat sebelumnya
+2. Gunakan website [QuickType](https://app.quicktype.io/) untuk mendpatkan kodenya lalu dicopy pada berkas ```lib/models/product.dart```
+3. Pengambilan data ```JSON``` dilihat dari berkas ```lib/models/product.dart```
+4. Menambahkan ```<uses-permission android:name="android.permission.INTERNET" />``` pada berkas ```android/app/src/main/AndroidManifest.xml```
+
+#### Menampilkan list product
+1. Dengan membuat file ```list_kdrama```
+2. Tambahkan ke ```left_drawer```
+```
+ListTile(
+            leading: const Icon(Icons.checklist),
+            title: const Text('Lihat Item'),
+            onTap: () {
+              // Route menu ke halaman produk
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const KdramaPage()),
+              );
+            },
+        ),
+```
+3. Tambahkan juga ke ```kdrama_card.dart```
+```
+else if (item.name == "Lihat Item"){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const KdramaPage(),
+              ),
+            );
+}
+```
+
+#### Integrasi from flutter
+1. tambahkan pada ```main/views.py``` pada django
+```
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_product = Product.objects.create(
+            user = request.user,
+            name = data["name"],
+            amount = int(data["amount"]),
+            description = data["description"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+```
+2. pada proyek flutter tambahkan ```final request = context.watch<CookieRequest>();``` pada setiap file yang ada dan di butuhkan
+
+#### Implementasi Fitur Logout
+1. tambahkan fungsi logout pada ```authentication/views.py```
+2. tambahkan path url juga
+
+# Archieve
+<details>
+<summary>Tugas 8</summary>
 ## Perbedaan ```Navigator.push()``` dan ```Navigator.pushReplacement()```
 |```Navigator.push()```|```Navigator.pushReplacement()```|
 |--|--|
@@ -471,14 +572,7 @@ onTap: () {
     }
 }
 ```
-
-
-
-
-
-
-
-# Archieve
+</details>
 <details>
 <summary>Tugas 7</summary>
 ## Perbedaan stateless dan stateful widget dalam konteks pengembangan aplikasi Flutter

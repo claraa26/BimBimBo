@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:bimbimbo/screens/menu.dart';
 import 'package:bimbimbo/screens/kdrama_form.dart';
 import 'package:bimbimbo/widgets/kdrama_card.dart';
+import 'package:bimbimbo/screens/list_kdrama.dart';
+
 
 
 class LeftDrawer extends StatelessWidget {
@@ -66,18 +68,29 @@ class LeftDrawer extends StatelessWidget {
               ));
             },
           ),
+          // ListTile(
+          //   leading: const Icon(Icons.checklist),
+          //   title: const Text('Lihat Item'),
+          //   // Bagian redirection ke ShopFormPage
+          //   onTap: () {
+          //     Navigator.pushReplacement(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => KdramaListPage(kdramaList: kdramaList),
+          //     ));
+          //   },
+          // ),
           ListTile(
             leading: const Icon(Icons.checklist),
             title: const Text('Lihat Item'),
-            // Bagian redirection ke ShopFormPage
             onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => KdramaListPage(kdramaList: kdramaList),
-              ));
+              // Route menu ke halaman produk
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const KdramaPage()),
+              );
             },
-          ),
+        ),
         ],
       ),
     );
